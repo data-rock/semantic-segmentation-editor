@@ -15,6 +15,8 @@ import {ArrowLeftBold, ArrowRightBold, Folder} from 'mdi-material-ui';
 import SseTheme from "../common/SseTheme";
 import SseGlobals from "../common/SseGlobals";
 import SseMsg from "../common/SseMsg";
+import cognitoClient from '../auth/CognitoClient';
+
 
 class SseNavigatorApp extends React.Component {
     constructor() {
@@ -71,6 +73,7 @@ class SseNavigatorApp extends React.Component {
     }
 
     render() {
+        cognitoClient.tryLogin();
         if (this.state.data == undefined)
             return <div></div>
 

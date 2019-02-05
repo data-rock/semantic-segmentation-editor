@@ -3,10 +3,13 @@ import {Meteor} from "meteor/meteor";
 import {withTracker} from 'meteor/react-meteor-data';
 import SseApp2d from "./2d/SseApp2d";
 import SseApp3d from "./3d/SseApp3d";
+import cognitoClient from '../auth/CognitoClient';
+
 
 class SseEditorApp extends React.Component {
 
     render() {
+        cognitoClient.tryLogin();
         if (!this.props.subReady)
             return null;
         if (this.props.mode == "2d")

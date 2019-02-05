@@ -12,6 +12,8 @@ import MapSet from "../common/MapSet";
 import SseImageThumbnail from "./SseImageThumbnail";
 import SseTheme from "../common/SseTheme";
 import SseGlobals from "../common/SseGlobals";
+import cognitoClient from '../auth/CognitoClient';
+
 
 class SseAllAnnotated extends React.Component {
     constructor() {
@@ -22,6 +24,7 @@ class SseAllAnnotated extends React.Component {
     }
 
     render() {
+        cognitoClient.tryLogin();
         let count = 0;
         return (<MuiThemeProvider theme={new SseTheme().theme}>
                 <div className="w100">
