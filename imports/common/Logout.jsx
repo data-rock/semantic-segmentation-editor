@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Session} from 'meteor/session';
-import {Tracker} from 'meteor/tracker';
+import styled from 'styled-components';
+
 import sessionKeys from '../auth/sessionKeys';
 import cognitoClient from '../auth/CognitoClient';
 
-import styled from 'styled-components'
 
 const DivRight = styled.div`
     display: flex;
@@ -26,31 +26,9 @@ const LogoutButton = ({email}) =>
         <Button onClick={() => cognitoClient.logout()}>Log out</Button>
     </DivRight>;
 
-const withLogoutButton = WrappedComponent =>
-    class LogoutButtonWrapper extends Component {
-        constructor(props) {
-            super(props);
-            this.state = {email: ''};
-            this.updateState = this.updateState.bind(this);
-        }
-
-        updateState() {
-            const userInfo = Session.get(sessionKeys.userInfo) || {email: ''};
-            this.setState({email: userInfo.email});
-        }
-
-        componentDidMount() {
-            Tracker.autorun(this.updateState);
-        }
-
-        render() {
-            return (
-                <div>
-                    <LogoutButton email={this.state.email}/>
-                    <WrappedComponent {...this.props}/>
-                </div>
-            );
-        }
-    };
-
+const withLogoutButton = WrappedComponent => (props) =>
+    <div>
+        <LogoutButton email={Session.get(sessionKeys.userInfo).email}/>
+        <WrappedComponent {...props}/>
+    </div>;
 export default withLogoutButton;
