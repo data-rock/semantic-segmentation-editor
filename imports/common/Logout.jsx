@@ -15,9 +15,9 @@ const DivRight = styled.div`
 const Button = styled.button`
   background: transparent;
   border-radius: 3px;
-  border: 2px solid palevioletred;
+  border: 2px solid grey;
   margin: 0em 1em;
-  color: red;
+  color: white;
 `;
 
 const LogoutButton = ({email}) =>
