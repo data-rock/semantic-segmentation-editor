@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "images-folder": "/home/ubuntu/data/images",
+    "internal-folder": "/home/ubuntu/data/internal"
+  },
+  "sets-of-classes": [
+    {
+      "name": "Rocks", "objects": [
+      {"label": "Olivine", "color": "#008000", "icon": "Motorbike"},
+      {"label": "Garnet", "color": "#800080", "icon": "Car"},
+      {"label": "Xenolith_light", "color": "#FFFF00", "icon": "Bus"},
+      {"label": "Xenolith_dark", "color": "#0000FF", "icon": "Truck"}
+    ]
+    }
+  ]
+}
+
