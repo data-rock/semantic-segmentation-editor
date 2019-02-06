@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { darkBaseTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import SseText from '../common/SseText';
@@ -18,6 +19,45 @@ import SseMsg from '../common/SseMsg';
 import authenticate from '../auth/Authentication';
 import withLogoutButton from '../common/Logout';
 
+
+const SubmitInput = styled.input`
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid grey;
+    margin: 0em 1em;
+    color: white;
+    width: 8%;
+`;
+
+class EditForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const folder = window.location.pathname.split('/').pop();
+        const path = `/edit/${folder}%2F${this.state.value}`;
+        this.props.history.push(path);
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <SubmitInput type="submit" value="Edit an image" />
+                <input type="text" style={{width: '90%'}} value={this.state.value} onChange={this.handleChange} />
+            </form>
+        );
+    }
+}
 
 class SseNavigatorApp extends React.Component {
     constructor() {
@@ -84,6 +124,7 @@ class SseNavigatorApp extends React.Component {
             <MuiThemeProvider theme={new SseTheme().theme}>
                 <div className='w100'>
                     <SseNavigatorToolbar history={this.props.history} />
+                    <EditForm history={this.props.history} />
                     <div className='sse-pager hflex'>
                         <Link to={this.state.data.previousPage || '#'}>
                             <IconButton touch='true'
