@@ -13,6 +13,7 @@ import SseImageThumbnail from './SseImageThumbnail';
 import SseTheme from '../common/SseTheme';
 import SseGlobals from '../common/SseGlobals';
 import authenticate from '../auth/Authentication';
+import withLogoutButton from '../common/Logout';
 
 
 class SseAllAnnotated extends React.Component {
@@ -37,7 +38,7 @@ class SseAllAnnotated extends React.Component {
                                     {Array.from(folder[1]).map(image =>
                                         (
                                             <div
-                                                onDoubleClick={() => {
+                                                onClick={() => {
                                                     this.props.history.push('/edit' + image.url)
                                                 }} key={SseGlobals.getFileUrl(image.url)}>
                                                 <SseImageThumbnail image={image} annotated={true} />
@@ -54,11 +55,11 @@ class SseAllAnnotated extends React.Component {
     }
 }
 
-export default authenticate(withTracker(() => {
+export default authenticate(withLogoutButton(withTracker(() => {
     Meteor.subscribe('sse-labeled-images');
     const all = SseSamples.find({ file: { '$exists': true } }).fetch();
     const grouped = new MapSet();
     all.forEach(im => { grouped.map(im.folder, im) });
     const imagesCount = all.length;
     return { grouped, imagesCount };
-})(SseAllAnnotated));
+})(SseAllAnnotated)));
