@@ -50,7 +50,6 @@ module.exports = {
         "computed-property-spacing": "error",
         "consistent-return": "error",
         "consistent-this": "error",
-        "curly": "error",
         "default-case": "error",
         "dot-notation": [
             "error",
@@ -202,12 +201,7 @@ module.exports = {
         "no-warning-comments": "error",
         "no-whitespace-before-property": "error",
         "no-with": "error",
-        "nonblock-statement-body-position": "error",
         "object-curly-newline": "error",
-        "object-curly-spacing": [
-            "error",
-            "never"
-        ],
         "object-property-newline": "error",
         "object-shorthand": "error",
         "one-var": "off",
