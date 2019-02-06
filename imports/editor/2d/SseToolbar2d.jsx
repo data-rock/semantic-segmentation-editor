@@ -4,9 +4,11 @@ import {
     ArrangeBringForward, ArrangeSendBackward, AutoFix, CallMerge, CheckOutline, ContentCut, CropLandscape,
     CursorDefaultOutline, DeleteForever, Download, Json, Looks, Redo, Undo, VectorPolygon
 } from 'mdi-material-ui';
-import SseBranding from "../../common/SseBranding";
+import FolderButton from "../../common/FolderButton";
+import withLogoutButton from "../../common/Logout";
 
-export default class SseToolbar2d extends SseToolbar {
+
+class SseToolbar2d extends SseToolbar {
 
     componentDidMount() {
         super.componentDidMount();
@@ -33,7 +35,7 @@ export default class SseToolbar2d extends SseToolbar {
         return (
             <div className="hflex flex-justify-content-space-around sse-toolbar no-shrink">
 
-                <SseBranding/>
+                <FolderButton/>
                 <div className="group">
                     {this.renderCommand("undoCommand")}
                     {this.renderCommand("redoCommand")}
@@ -63,6 +65,6 @@ export default class SseToolbar2d extends SseToolbar {
             </div>
         )
     }
-
-
 }
+
+export default withLogoutButton(SseToolbar2d);

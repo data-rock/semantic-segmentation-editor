@@ -16,6 +16,7 @@ import SseTheme from '../common/SseTheme';
 import SseGlobals from '../common/SseGlobals';
 import SseMsg from '../common/SseMsg';
 import authenticate from '../auth/Authentication';
+import withLogoutButton from '../common/Logout';
 
 
 class SseNavigatorApp extends React.Component {
@@ -130,11 +131,11 @@ class SseNavigatorApp extends React.Component {
     }
 }
 
-export default authenticate(withTracker((props) => {
+export default authenticate(withLogoutButton(withTracker((props) => {
     Meteor.subscribe('sse-labeled-images');
     const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
     let urlMap = new Map();
     annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
     return { urlMap };
-})(SseNavigatorApp));
+})(SseNavigatorApp)));
 

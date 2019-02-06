@@ -83,6 +83,10 @@ class CognitoClient {
         return `${baseUrl()}/logout?${query}`;
     }
 
+    logout = () => {
+        window.location = this.logoutUrl();
+    };
+
     receiveTokensResponse(resp) {
         resp.json().then(this.receiveTokens, logError);
     }
