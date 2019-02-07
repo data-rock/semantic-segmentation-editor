@@ -28,7 +28,7 @@ const LogoutButton = ({email}) =>
 
 const withLogoutButton = WrappedComponent => (props) =>
     <div>
-        <LogoutButton email={Session.get(sessionKeys.userInfo).email}/>
+        <LogoutButton email={Session.get(sessionKeys.userInfo) ? Session.get(sessionKeys.userInfo).email : ''}/>
         <WrappedComponent {...props}/>
     </div>;
 export default withLogoutButton;
