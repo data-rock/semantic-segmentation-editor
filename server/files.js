@@ -7,16 +7,11 @@ import { basename, extname, join } from "path";
 import configurationFile from "./config";
 
 Meteor.startup(() => {
-    SSLProxy({
-        port: 4000, //or 443 (normal port/requires sudo)
-        ssl : {
-             key: Assets.getText("localhost.key"),
-             cert: Assets.getText("localhost.cert"),
- 
-             //Optional CA
-             //Assets.getText("ca.pem")
-        }
-     });
+    SSL(
+        process.env.PWD +  "/private/localhost.key",
+        process.env.PWD +  "/private/localhost.cert",
+        4000
+    );
 
     const { imagesFolder, pointcloudsFolder } = configurationFile;
     WebApp.connectHandlers.use("/file", serveStatic(imagesFolder, { fallthrough: false }));
