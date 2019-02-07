@@ -1,21 +1,31 @@
-import {Meteor} from "meteor/meteor";
+import { Meteor } from "meteor/meteor";
 import shell from "shelljs";
 import serveStatic from "serve-static";
 import bodyParser from "body-parser";
-import {createWriteStream, lstatSync, readdirSync, readFile, readFileSync} from "fs";
-import {basename, extname, join} from "path";
+import { createWriteStream, lstatSync, readdirSync, readFile, readFileSync } from "fs";
+import { basename, extname, join } from "path";
 import configurationFile from "./config";
 
 Meteor.startup(() => {
+    SSLProxy({
+        port: 4000, //or 443 (normal port/requires sudo)
+        ssl : {
+             key: Assets.getText("localhost.key"),
+             cert: Assets.getText("localhost.cert"),
+ 
+             //Optional CA
+             //Assets.getText("ca.pem")
+        }
+     });
 
-const {imagesFolder, pointcloudsFolder} = configurationFile;
-    WebApp.connectHandlers.use("/file", serveStatic(imagesFolder, {fallthrough: false}));
-    WebApp.connectHandlers.use("/datafile", serveStatic(pointcloudsFolder, {fallthrough: true}));
-    WebApp.connectHandlers.use("/datafile", (req,res)=>{
+    const { imagesFolder, pointcloudsFolder } = configurationFile;
+    WebApp.connectHandlers.use("/file", serveStatic(imagesFolder, { fallthrough: false }));
+    WebApp.connectHandlers.use("/datafile", serveStatic(pointcloudsFolder, { fallthrough: true }));
+    WebApp.connectHandlers.use("/datafile", (req, res) => {
         res.end("");
     });
 
-    WebApp.connectHandlers.use(bodyParser.raw({limit: "200mb", type: 'application/octet-stream'}));
+    WebApp.connectHandlers.use(bodyParser.raw({ limit: "200mb", type: 'application/octet-stream' }));
     WebApp.connectHandlers.use('/save', function (req, res) {
         const fileToSave = pointcloudsFolder + decodeURIComponent(req.url).replace("/save", "");
         const dir = fileToSave.match("(.*\/).*")[1];
