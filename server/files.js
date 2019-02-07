@@ -8,8 +8,8 @@ import configurationFile from "./config";
 
 Meteor.startup(() => {
     SSL(
-        process.env.PWD +  "/private/localhost.key",
-        process.env.PWD +  "/private/localhost.cert",
+        Assets.absoluteFilePath("localhost.key"),
+        Assets.absoluteFilePath("localhost.cert"),
         4000
     );
 
