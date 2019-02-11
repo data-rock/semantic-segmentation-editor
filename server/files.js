@@ -8,10 +8,15 @@ import configurationFile from "./config";
 
 Meteor.startup(() => {
     SSL(
-        process.env.PWD +  "/private/localhost.key",
-        process.env.PWD +  "/private/localhost.cert",
+        Assets.absoluteFilePath("localhost.key"),
+        Assets.absoluteFilePath("localhost.cert"),
         4000
     );
+
+    SseSamples.rawCollection().createIndex({'file': 1});
+    SseSamples.rawCollection().createIndex({'url': 1});
+    SseSamples.rawCollection().createIndex({'file': 1, 'url': 1});
+    SseSamples.rawCollection().createIndex({'folder': 1});
 
     const { imagesFolder, pointcloudsFolder } = configurationFile;
     WebApp.connectHandlers.use("/file", serveStatic(imagesFolder, { fallthrough: false }));
