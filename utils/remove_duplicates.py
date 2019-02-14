@@ -13,10 +13,13 @@ def remove_dups(folder):
     count_fns = Counter()
     for d in coll.find({'folder': folder}): count_fns[d['file']] += 1
     dup_fns = [fn for fn in count_fns if count_fns[fn] > 1]
+    print(folder, 'dups: %d' % len(dup_fns))
     for fn in dup_fns:
         for i, d in enumerate(coll.find({'folder': folder, 'file': fn})):
             if i == 0: continue
             coll.delete_one({'_id': d['_id']})
 
+remove_dups('/SPF-129_pred')
+remove_dups('/SPF-157_pred')
 remove_dups('/STR-06-030C_pred')
 remove_dups('/SPF-157_pred')
