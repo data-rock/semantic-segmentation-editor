@@ -173,11 +173,12 @@ class SseNavigatorApp extends React.Component {
 }
 
 export default authenticate(withLogoutButton(withTracker((props) => {
+    const folder = decodeURIComponent(props.match.params.path);
+    const fromIndex = parseInt(props.match.params.fromIndex);
+    const pageLength = parseInt(props.match.params.pageLength);
     Meteor.subscribe(
         'sse-labeled-images',
-        decodeURIComponent(props.match.params.path),
-        props.match.params.fromIndex,
-        props.match.params.pageLength
+        folder, fromIndex, pageLength
     );
     const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
     const urlMap = new Map();
