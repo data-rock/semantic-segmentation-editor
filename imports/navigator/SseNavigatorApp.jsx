@@ -184,8 +184,6 @@ export default authenticate(withLogoutButton(withTracker((props) => {
     const urlMap = new Map();
     if (subReady) {
         const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
-        console.log(annotated.length, subReady);
-        console.log(annotated);
         annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
     }
     return { urlMap, subReady };
