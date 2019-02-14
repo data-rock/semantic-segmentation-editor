@@ -106,7 +106,6 @@ class SseNavigatorApp extends React.Component {
     }
 
     componentDidMount() {
-        this.serverCall(this.props);
     }
 
     startEditing(image) {
@@ -114,12 +113,13 @@ class SseNavigatorApp extends React.Component {
     }
 
     render() {
-        if (this.state.data == undefined)
+        if (!(this.props.subReady) || (this.state.data == undefined))
             return <div></div>
 
         if (this.state.data.error) {
             return <div>{this.state.data.error}</div>
         }
+
         return (
             <MuiThemeProvider theme={new SseTheme().theme}>
                 <div className='w100'>
@@ -176,13 +176,18 @@ export default authenticate(withLogoutButton(withTracker((props) => {
     const folder = decodeURIComponent(props.match.params.path);
     const fromIndex = parseInt(props.match.params.fromIndex);
     const pageLength = parseInt(props.match.params.pageLength);
-    Meteor.subscribe(
+    const subscription = Meteor.subscribe(
         'sse-labeled-images',
         folder, fromIndex, pageLength
     );
-    const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
+    const subReady = subscription.ready();
     const urlMap = new Map();
-    annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
-    return { urlMap };
+    if (subReady) {
+        const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
+        console.log(annotated.length, subReady);
+        console.log(annotated);
+        annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
+    }
+    return { urlMap, subReady };
 })(SseNavigatorApp)));
 
