@@ -20,7 +20,7 @@ class SseImageThumbnail extends React.Component {
         return (
             <div className="sse-thumbnail vflex flex-align-items-center">
                 <img
-                    src={image.url.endsWith(".pcd") ? "/pcl_horz_large_neg.png" : SseGlobals.getFileUrl(image.url + "?size=small")}/>
+                    src={image.url.endsWith(".pcd") ? "/pcl_horz_large_neg.png" : SseGlobals.getFileThumbnailUrl(image.url)}/>
                 <div className="w100 text-align-center text-crop">{name}</div>
                 <div>
                     {this.props.annotated

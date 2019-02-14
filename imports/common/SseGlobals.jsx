@@ -22,6 +22,10 @@ export default class SseGlobals {
         return "/file" + arg;
     }
 
+    static getFileThumbnailUrl(arg) {
+        return "/file/thumbnails" + arg;
+    }
+
     static setCursor(cls) {
         if (this.prototype.cursor == cls)
             return;
