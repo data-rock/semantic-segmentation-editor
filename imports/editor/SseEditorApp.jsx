@@ -22,9 +22,10 @@ class SseEditorApp extends React.Component {
 export default authenticate(withTracker((props) => {
     $('#waiting').removeClass('display-none');
     const imageUrl = '/' + props.match.params.path;
-    let subName = 'sse-data-descriptor';
+    const subName = 'sse-data-descriptor';
     const subscription = Meteor.subscribe(subName, imageUrl);
     const subReady = subscription.ready();
     const mode = props.match.params.path.endsWith('.pcd') ? '3d' : '2d';
     return { imageUrl, subReady, mode };
 })(SseEditorApp));
+
