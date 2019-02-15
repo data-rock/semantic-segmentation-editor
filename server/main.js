@@ -129,6 +129,16 @@ Meteor.methods({
             res.previousPage = `/browse/${pageIndex - 1}/${pageLength}/` + encodeURIComponent(folder);
         }
 
+        res.urlMap = res.images.reduce(
+            (map, img) => {
+                map[img.url] = Boolean(SseSamples.findOne({
+                    url: '/' + encodeURIComponent(img.url.slice(1)),
+                    $where: 'this.objects && this.objects.length>0'
+                }));
+                return map;
+            },
+            {}
+        )
         return res;
     },
 

@@ -106,6 +106,7 @@ class SseNavigatorApp extends React.Component {
     }
 
     componentDidMount() {
+        this.serverCall(this.props);
     }
 
     startEditing(image) {
@@ -113,6 +114,7 @@ class SseNavigatorApp extends React.Component {
     }
 
     render() {
+        console.log(this.state.data);
         if (!(this.props.subReady) || (this.state.data == undefined))
             return <div></div>
 
@@ -161,7 +163,7 @@ class SseNavigatorApp extends React.Component {
                                 onDoubleClick={() => { this.startEditing(image) }}
                                 key={SseGlobals.getFileUrl(image.url) + Math.random()}>
                                 <SseImageThumbnail image={image}
-                                    annotated={this.props.urlMap.get(decodeURIComponent(image.url))} />
+                                    annotated={this.state.data.urlMap[image.url]} />
                             </div>)
                         )}
                     </div>
@@ -176,16 +178,21 @@ export default authenticate(withLogoutButton(withTracker((props) => {
     const folder = decodeURIComponent(props.match.params.path);
     const fromIndex = parseInt(props.match.params.fromIndex);
     const pageLength = parseInt(props.match.params.pageLength);
-    const subscription = Meteor.subscribe(
+    /*
+    #const subscription = Meteor.subscribe(
         'sse-labeled-images',
         folder, fromIndex, pageLength
     );
     const subReady = subscription.ready();
+    */
+    const subReady = true;
     const urlMap = new Map();
+    /*
     if (subReady) {
         const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
         annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
     }
+    */
     return { urlMap, subReady };
 })(SseNavigatorApp)));
 
