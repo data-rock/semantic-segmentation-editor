@@ -131,10 +131,13 @@ Meteor.methods({
 
         res.urlMap = res.images.reduce(
             (map, img) => {
-                map[img.url] = Boolean(SseSamples.findOne({
-                    url: '/' + encodeURIComponent(img.url.slice(1)),
-                    $where: 'this.objects && this.objects.length>0'
-                }));
+                map[img.url] = Boolean(SseSamples.findOne(
+                    {
+                        url: '/' + encodeURIComponent(img.url.slice(1)),
+                        $where: 'this.objects && this.objects.length>0'
+                    },
+                    {fields: {file: 1}}
+                ));
                 return map;
             },
             {}
