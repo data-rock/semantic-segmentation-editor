@@ -114,8 +114,7 @@ class SseNavigatorApp extends React.Component {
     }
 
     render() {
-        console.log(this.state.data);
-        if (!(this.props.subReady) || (this.state.data == undefined))
+        if (this.state.data == undefined)
             return <div></div>
 
         if (this.state.data.error) {
@@ -174,25 +173,5 @@ class SseNavigatorApp extends React.Component {
     }
 }
 
-export default authenticate(withLogoutButton(withTracker((props) => {
-    const folder = decodeURIComponent(props.match.params.path);
-    const fromIndex = parseInt(props.match.params.fromIndex);
-    const pageLength = parseInt(props.match.params.pageLength);
-    /*
-    #const subscription = Meteor.subscribe(
-        'sse-labeled-images',
-        folder, fromIndex, pageLength
-    );
-    const subReady = subscription.ready();
-    */
-    const subReady = true;
-    const urlMap = new Map();
-    /*
-    if (subReady) {
-        const annotated = SseSamples.find({ file: { '$exists': true } }).fetch();
-        annotated.forEach(o => urlMap.set(decodeURIComponent(o.url), true));
-    }
-    */
-    return { urlMap, subReady };
-})(SseNavigatorApp)));
+export default authenticate(withLogoutButton(SseNavigatorApp));
 
