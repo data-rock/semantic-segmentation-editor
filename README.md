@@ -52,7 +52,7 @@ __(Optional) Edit settings.json__
  You can configure these folders in settings.json by modifying <code>images-folder</code> and <code>internal-folder</code> properties. 
 On Windows, use '/' separators, example <code>c:/Users/john/images</code>
 
-
+Note that: You need to have a `thumbnails` folder inside your root image directory. That folder must contain thumbnails for all images in your image directory. The thumbnails must be put into sub-folders having the same names as those in your root image directory.
 
 Check [Meteor Environment Variables](https://docs.meteor.com/environment-variables.html) to configure your app
 (`MONGO_URL`, `DISABLE_WEBSOCKETS`, etc...)
