@@ -46,14 +46,23 @@ meteor npm start
 
 The editor will run by default on `http://localhost:3000`
 
-__(Optional) Edit settings.json__
+__Edit settings.json__
  
  By default, images are served from <code>your_home_dir/sse-images</code> and pointcloud binary segmentation data are stored in <code>your_home_dir/sse-internal</code>.
  You can configure these folders in settings.json by modifying <code>images-folder</code> and <code>internal-folder</code> properties. 
 On Windows, use '/' separators, example <code>c:/Users/john/images</code>
 
-Note that: You need to have a `thumbnails` folder inside your root image directory. That folder must contain thumbnails for all images in your image directory. The thumbnails must be put into sub-folders having the same names as those in your root image directory.
-
+Note that: You need to have a `thumbnails` folder inside your root image directory. That folder must contain thumbnails for all images in your image directory. The thumbnails must be put into sub-folders having the same names as those in your root image directory. For example:
+```
+your_root_directory
+|-folder_1
+|--image_1.png
+|-image_2.png
+|-thumbnails
+|--folder_1
+|----image_1.png
+|--image_2.png
+```
 Check [Meteor Environment Variables](https://docs.meteor.com/environment-variables.html) to configure your app
 (`MONGO_URL`, `DISABLE_WEBSOCKETS`, etc...)
 
