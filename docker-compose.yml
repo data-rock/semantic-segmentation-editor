@@ -15,14 +15,16 @@ services:
     build: .
     working_dir: /code
     command: ['/bin/bash', 'utils/docker_cmd.sh']
-    # volumes:
-    #   - .:/code
+    # when developing
+    #volumes:
+    #  - .:/code
     ports:
       - 3000:3000 # http
       - 4000:4000 # https
+    env_file: .env
     environment:
       - MONGO_URL=mongodb://root:password@mongo:27017
       - IMG_DIR=/root/images
-      - AWS_ACCESS_KEY=
-      - AWS_SECRET_KEY=
+      #- AWS_ACCESS_KEY=
+      #- AWS_SECRET_KEY=
       - S3_BUCKET=tin-annotation

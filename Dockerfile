@@ -6,5 +6,11 @@ RUN curl https://install.meteor.com/ | sh
 
 COPY . /code
 WORKDIR /code
+
+# This will set up the app in the debug mode
 RUN cd /code && meteor npm install
+
+# This will set up the app in the production mode
+# RUN cd /code && meteor --allow-superuser build --directory /root/build
+# RUN cd /root/build/bundle/programs/server && meteor npm --allow-superuser install --production
 CMD ["/code/utils/docker_cmd.sh"]
