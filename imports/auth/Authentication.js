@@ -20,14 +20,15 @@ const authenticate = WrappedComponent =>
         }
 
         componentDidMount() {
-            cognitoClient.tryLogin();
-            Tracker.autorun(this.updateState);
+            // cognitoClient.tryLogin();
+            // Tracker.autorun(this.updateState);
         }
 
         render() {
-            if (this.state.loggedIn)
-                return <WrappedComponent {...this.props} />;
-            return <div></div>;
+            return <WrappedComponent {...this.props} />;
+            // if (this.state.loggedIn)
+            //     return <WrappedComponent {...this.props} />;
+            // return <div></div>;
         }
     };
 
