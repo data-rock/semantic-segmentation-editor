@@ -1,7 +1,7 @@
 {
   "configuration": {
-    "images-folder": "",
-    "internal-folder": ""
+    "images-folder": "/root/images",
+    "internal-folder": "/root/internal"
   },
   "sets-of-classes": [
     {

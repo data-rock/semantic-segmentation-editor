@@ -1,0 +1,24 @@
+version: '2'
+services:
+  mongo:
+    image: mongo:3.4.20
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  ann_app:
+    depends_on:
+      - mongo
+    privileged: true
+    build: .
+    working_dir: /code
+    command: ['/bin/bash', 'utils/docker_cmd.sh']
+    volumes:
+      - .:/code
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URL=mongodb://root:password@mongo:27017
+      - IMG_DIR=/root/images
