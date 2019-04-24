@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "images-folder": "/root/images",
+    "internal-folder": "/root/internal"
+  },
+  "sets-of-classes": [
+    {
+      "name": "Objects", "objects": [
+      {"label": "Box", "color": "#008000", "icon": "Motorbike"},
+      {"label": "Row", "color": "#800080", "icon": "Car"},
+      {"label": "Block", "color": "#FFFF00", "icon": "Bus"},
+      {"label": "Rock", "color": "#0000FF", "icon": "Truck"}
+    ]
+    }
+  ]
+}
+
