@@ -28,3 +28,4 @@ services:
       #- AWS_ACCESS_KEY=
       #- AWS_SECRET_KEY=
       - S3_BUCKET=datarock-annotation
+      #- AWS_REGION=ap-southeast-2
