@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# Belongs in Hitachi app repo
-
 set -e
 
+SERVICE=hitachi
 [[ -z "$SERVICE" ]] && echo "SERVICE must be set" && exit 1
 [[ -z "$TAG_NAME" ]] && echo "TAG_NAME must be set" && exit 1
 [[ -z "$ENVIRONMENT" ]] && echo "ENVIRONMENT must be set" && exit 1
@@ -21,6 +20,10 @@ ECR_HOST=$(echo "${ECS_STACK_DETAILS}" | jq --raw-output '.Stacks[0].Outputs[] |
 IMAGE_TAG=${IMAGE_NAME}:${TAG_NAME}
 LATEST_TAG=${IMAGE_NAME}:latest
 
+function build_image {
+  docker build --tag ${IMAGE_TAG} .
+}
+
 function tag_image {
   docker tag "${IMAGE_TAG}" "${ECR_HOST}/${IMAGE_TAG}"
   docker tag "${IMAGE_TAG}" "${ECR_HOST}/${LATEST_TAG}"
@@ -32,6 +35,6 @@ function push_to_ecr {
   docker push "${ECR_HOST}/${LATEST_TAG}"
 }
 
-tag_image && push_to_ecr
+build_image && tag_image && push_to_ecr
 
 aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE --force-new-deployment
